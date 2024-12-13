@@ -34,3 +34,22 @@ def nim_game():
         player_turn = not player_turn
     print("Game over. You win!" if not player_turn else "Game over. You lose!")
     return not player_turn
+
+def display_grid(grid):
+    for row in grid:
+        print(" | ".join(row))
+        print("-" * 5)
+
+def check_victory(grid, symbol):
+    for row in grid:
+        if all(cell == symbol for cell in row):
+            return True
+    for col in range(len(grid[0])):
+        if all(grid[row][col] == symbol for row in range(len(grid))):
+            return True
+    if all(grid[i][i] == symbol for i in range(len(grid))):
+        return True
+    if all(grid[i][len(grid)-i-1] == symbol for i in range(len(grid))):
+        return True
+    return False
+
