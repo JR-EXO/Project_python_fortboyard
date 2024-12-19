@@ -100,4 +100,6 @@ def full_grid(grid):
                 return False
     return True
 def check_result(grid):
-    
+    if check_victory(grid, 'X'):
+        print("Player 'X' wins!")
+        return True
