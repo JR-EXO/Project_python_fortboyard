@@ -103,3 +103,33 @@ def check_result(grid):
     if check_victory(grid, 'X'):
         print("Player 'X' wins!")
         return True
+    if check_victory(grid, 'O'):
+        print("Player 'O' wins!")
+        return True
+    if full_grid(grid):
+        print("The game is a draw!")
+        return True
+    return False
+
+
+def tictactoe_game():
+    grid = [['' for _ in range(3)] for _ in range(3)]
+    def display_grid():
+        for row in grid:
+            print(" | ".join(cell if cell != '' else ' ' for cell in row))
+        print()
+    print("Welcome to Tic-Tac-Toe!")
+    display_grid()
+    while True:
+        print("Player 'X', it's your turn!")
+        player_turn(grid)
+        display_grid()
+        if check_result(grid):
+            return True
+        print("Game master 'O', it's your turn!")
+        master_turn(grid)
+        display_grid()
+        if check_result(grid):
+            return False
+
+
