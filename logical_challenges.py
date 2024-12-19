@@ -1,3 +1,6 @@
+import random
+
+
 def display_sticks(n):
     for i in range(n):
         print("|")
@@ -53,5 +56,46 @@ def check_victory(grid, symbol):
         return True
     return False
 
+def master_move(grid, symbol):
+    opponent = "X" if symbol == "O" else "O"
+    for row in range(len(grid)):
+        for col in range(len(grid[row])):
+            if grid[row][col] == "":
+                grid[row][col] = symbol
+                if check_victory(grid, symbol):
+                    return (row, col)
+                grid[row][col] = ""
+    for row in range(len(grid)):
+        for col in range(len(grid[row])):
+            if grid[row][col] == "":
+                grid[row][col] = opponent
+                if check_victory(grid, opponent):
+                    return (row, col)
+                grid[row][col] = ""
+    row = random.randint(0, len(grid)-1)
+    col = random.randint(0, len(grid[row])-1)
+    while grid[row][col] != "":
+        row = random.randint(0, len(grid)-1)
+        col = random.randint(0, len(grid[row])-1)
+    return (row, col)
 
+def player_turn(grid):
+    while True:
+        row = int(input("Enter row: "))
+        col = int(input("Enter column: "))
+        if grid[row][col] == "":
+            grid[row][col] = "X"
+            break
+        else:
+            print("This square is occupied. Please choose a different one.")
 
+def master_turn(grid):
+    row, col = master_move(grid, "O")
+    grid[row][col] = "O"
+
+def full_grid(grid):
+    for row in grid:
+        for cell in row:
+            if cell == "":
+                return False
+    return True
