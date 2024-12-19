@@ -99,6 +99,7 @@ def full_grid(grid):
             if cell == "":
                 return False
     return True
+
 def check_result(grid):
     if check_victory(grid, 'X'):
         print("Player 'X' wins!")
@@ -131,5 +132,3 @@ def tictactoe_game():
         display_grid()
         if check_result(grid):
             return False
-
-
