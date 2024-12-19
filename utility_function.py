@@ -13,3 +13,56 @@ def introduction():
         "Good luck and have fun!\n"
     )
 
+def compose_equipe():
+    team = []
+    max_players = 3
+
+    while True:
+        try:
+            num_players = int(input("How many players do you want to include in the team? "))
+            if num_players < 1 or num_players > max_players:
+                print(f"Error: You can only have between 1 and {max_players} players. Please try again.")
+            else:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    for i in range(num_players):
+        print(f"Enter details for player {i + 1}:")
+        name = input("Name: ").strip()
+        profession = input("Profession: ").strip()
+        is_leader = input("Is this player the team leader? (yes/no): ").strip().lower() == 'yes'
+        player = {
+            'name': name,
+            'profession': profession,
+            'is_leader': is_leader,
+            'keys_wons': 0
+        }
+        team.append(player)
+
+    # Ensure there is at least one team leader
+    if not any(player['is_leader'] for player in team):
+        team[0]['is_leader'] = True
+
+    return team
+
+def challenges_menu():
+    """Display the menu for the user to choose the type of challenge and return the choice."""
+    print("Choose a challenge type:")
+    print("1. Mathematics challenge")
+    print("2. Logic challenge")
+    print("3. Chance challenge")
+    print("4. Père Fouras' riddle")
+
+    while True:
+        try:
+            choice = int(input("Enter the number of your choice: "))
+            if choice < 1 or choice > 4:
+                print("Error: Invalid choice. Please enter a number between 1 and 4.")
+            else:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    return choice
+
