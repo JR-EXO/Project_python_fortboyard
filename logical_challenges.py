@@ -99,3 +99,5 @@ def full_grid(grid):
             if cell == "":
                 return False
     return True
+def check_result(grid):
+    
