@@ -132,3 +132,87 @@ def tictactoe_game():
         display_grid()
         if check_result(grid):
             return False
+
+def next_player(player):
+    return 1 - player
+
+def empty_grid2():
+    return [[" " for _ in range(3)] for _ in range(3)]
+
+def display_grid2(grid2, message):
+    print(message)
+    for row in grid2:
+        print("|".join(row))
+        print("-" * 5)
+
+def ask_position():
+    while True:
+        pos = input("Enter a position (row,column): ")
+        row, col = map(int, pos.split(","))
+        if 0 <= row < 3 and 0 <= col < 3:
+            return row, col
+        else:
+            print("Invalid position. Please enter values between 0 and 2.")
+
+def initialize():
+    grid2 = empty_grid2()
+    boats = 0
+    while boats < 2:
+        display_grid(grid2, "Place your boats on the grid:")
+        row, col = ask_position()
+        if grid2[row][col] == " ":
+            grid2[row][col] = "B"
+            boats += 1
+        else:
+            print("Position already occupied. Choose another spot.")
+    return grid2
+
+def turn(player, player_shots_grid2, opponent_grid2):
+    display_grid2(player_shots_grid2, "Your shot history:")
+
+    if player == 0:  # Human player
+        row, col = ask_position()
+    else:  # Game master
+        row, col = random.randint(0, 2), random.randint(0, 2)
+        print(f"Game master chooses position: {row},{col}")
+
+    if opponent_grid2[row][col] == "B":
+        print("Hit!")
+        player_shots_grid2[row][col] = "x"
+        opponent_grid2[row][col] = "x"
+    else:
+        print("Miss!")
+        player_shots_grid2[row][col] = "."
+
+def has_won(player_shots_grid):
+    return sum(row.count("x") for row in player_shots_grid) == 2
+
+def battleship_game():
+    print("Welcome to the Battleship game adventurer!")
+    print("Each player places 2 boats on a 3x3 grid. First to sink both boats wins.")
+    player_grid2 = initialize()
+    game_master_grid2 = empty_grid2()
+    for _ in range(2):
+        while True:
+            row, col = random.randint(0, 2), random.randint(0, 2)
+            if game_master_grid2[row][col] == " ":
+                game_master_grid2[row][col] = "B"
+                break
+    player_shots_grid2 = empty_grid2()
+    game_master_shots_grid2 = empty_grid2()
+    current_player = 0
+    while True:
+        if current_player == 0:
+            print("\nPlayer's turn!")
+            turn(0, player_shots_grid2, game_master_grid2)
+            if has_won(player_shots_grid2):
+                print("Congratulations! You sank all the game master's boats!")
+                return True
+        else:
+            print("\nGame master's turn!")
+            turn(1, game_master_shots_grid2, player_grid2)
+            if has_won(game_master_shots_grid2):
+                print("The game master sank all your boats! You lost.")
+                return False
+
+        current_player = next_player(current_player)
