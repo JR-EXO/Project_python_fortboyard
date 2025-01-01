@@ -66,3 +66,19 @@ def challenges_menu():
 
     return choice
 
+def choose_player(team):
+    """Display the list of players and allow the user to select a player to take on the challenge."""
+    print("Choose a player to take on the challenge:")
+    for i, player in enumerate(team, start=1):
+        role = "Leader" if player['is_leader'] else "Member"
+        print(f"{i}. {player['name']} ({player['profession']}) - {role}")
+    while True:
+        try:
+            choice = int(input("Enter the player's number: "))
+            if choice < 1 or choice > len(team):
+                print("Error: Invalid choice. Please enter a number between 1 and", len(team))
+            else:
+                break
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+    return team[choice - 1]
