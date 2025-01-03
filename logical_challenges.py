@@ -216,3 +216,8 @@ def battleship_game():
                 return False
 
         current_player = next_player(current_player)
+
+def logical_challenge():
+    challenges = [tictactoe_game, battleship_game, nim_game()]
+    challenge = random.choice(challenges)
+    return challenge()
