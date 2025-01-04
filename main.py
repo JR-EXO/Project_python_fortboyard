@@ -28,7 +28,7 @@ def game():
             keys_won += 1
             print(f"{player['name']} won a key! Total keys won: {keys_won}")
 
-    treasure_room()  # Assuming a function final_challenge exists
+    treasure_room()
     print("Congratulations! You've completed the game.")
 
 game()
