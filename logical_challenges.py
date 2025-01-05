@@ -1,18 +1,19 @@
 import random
 
 
+# Function to display a specified number of sticks
 def display_sticks(n):
     for i in range(n):
         print("|")
 
-
-
+# Function to handle player's stick removal action
 def player_removal(n):
     sticks = int(input("There are %d sticks left. How many will you remove? (1, 2, or 3) " % n))
     while sticks < 1 or sticks > 3 or sticks > n:
         sticks = int(input("Invalid input. Please enter a valid number of sticks: "))
     return sticks
 
+# Function to determine the master's stick removal strategy
 def master_removal(n):
     strategy = n % 4
     if strategy == 0:
@@ -23,6 +24,7 @@ def master_removal(n):
         return 1
     elif strategy == 3:
         return 3
+
 
 def nim_game():
     sticks = 20
