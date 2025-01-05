@@ -1,5 +1,5 @@
 import random
-from random import *
+
 
 def display_sticks(n):
     for i in range(n):
