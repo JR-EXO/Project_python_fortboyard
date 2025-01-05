@@ -1,5 +1,5 @@
 import random
-from random import *
+
 
 
 def factorial(n):
@@ -90,5 +90,5 @@ def math_roulette_challenge():
 
 def math_challenge():
     challenges = [math_challenge_factorial, math_challenge_equation, math_challenge_prime, math_roulette_challenge]
-    challenge = choice(challenges)
+    challenge = random.choice(challenges)
     return challenge()
